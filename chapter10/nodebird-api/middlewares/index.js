@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const reateLinit = require('express-rate-limit');
+const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const { Domain } = require('../models');
 
@@ -42,7 +42,8 @@ exports.verifyToken = (req, res, next) => {
   }
 };
 
-exports.apiLiniter = reateLinit.rateLimit({
+exports.apiLimiter = rateLimit.rateLimit({
+  // windowMs : 기준 시간, max : 허용 횟수, handler : 제한 초과 시 콜백 함수
   windowMs: 60 * 1000,
   max: 10,
   handler(req, res) {

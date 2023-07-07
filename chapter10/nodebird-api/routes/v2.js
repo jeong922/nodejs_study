@@ -1,5 +1,4 @@
 const express = require('express');
-const cors = require('cors');
 
 const {
   verifyToken,
@@ -17,22 +16,16 @@ const router = express.Router();
 
 router.use(corsWhenDomainMatches);
 
-router.use(
-  cors({
-    credentials: true,
-  })
-);
-
 // POST /v2/token
-router.post('/token', createToken);
+router.post('/token', apiLimiter, createToken);
 
 // POST /v2/test
-router.get('/test', verifyToken, tokenTest);
+router.get('/test', apiLimiter, verifyToken, tokenTest);
 
 // GET /v2/posts/my
-router.get('/posts/my', verifyToken, getMyPosts);
+router.get('/posts/my', apiLimiter, verifyToken, getMyPosts);
 
 // GET /v2/posts/hashtag/:title
-router.get('/posts/hashtag/:title', verifyToken, getPostsByHashtag);
+router.get('/posts/hashtag/:title', apiLimiter, verifyToken, getPostsByHashtag);
 
 module.exports = router;

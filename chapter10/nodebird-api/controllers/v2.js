@@ -24,7 +24,7 @@ exports.createToken = async (req, res) => {
       },
       process.env.JWT_SECRET,
       {
-        expiresIn: '30m',
+        expiresIn: '30m', // 30분
         issuer: 'nodebird',
       }
     );
