@@ -1,27 +1,38 @@
 const express = require('express');
+const cors = require('cors');
 
-const { verifyToken, deprecated } = require('../middlewares');
+const {
+  verifyToken,
+  apiLimiter,
+  corsWhenDomainMatches,
+} = require('../middlewares');
 const {
   createToken,
   tokenTest,
   getMyPosts,
   getPostsByHashtag,
-} = require('../controllers/v1');
+} = require('../controllers/v2');
 
 const router = express.Router();
 
-router.use(deprecated);
+router.use(corsWhenDomainMatches);
 
-// POST /v1/token
+router.use(
+  cors({
+    credentials: true,
+  })
+);
+
+// POST /v2/token
 router.post('/token', createToken);
 
-// POST /v1/test
+// POST /v2/test
 router.get('/test', verifyToken, tokenTest);
 
-// GET /v1/posts/my
+// GET /v2/posts/my
 router.get('/posts/my', verifyToken, getMyPosts);
 
-// GET /v1/posts/hashtag/:title
+// GET /v2/posts/hashtag/:title
 router.get('/posts/hashtag/:title', verifyToken, getPostsByHashtag);
 
 module.exports = router;
