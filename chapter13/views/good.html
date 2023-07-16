@@ -1,30 +1,24 @@
 {% extends 'layout.html' %} {% block content %}
 <div class="timeline">
-  <form action="/auth/join" id="join-form" method="post">
+  <form
+    action="/good"
+    id="good-form"
+    method="post"
+    enctype="multipart/form-data"
+  >
     <div class="input-group">
-      <label for="join-email">이메일</label>
-      <input type="email" id="join-email" name="email" />
+      <label for="good-name">상품명</label>
+      <input type="text" id="good-name" name="name" required autofocus />
     </div>
     <div class="input-group">
-      <label for="join-nick">닉네임</label>
-      <input type="text" id="join-nick" name="nick" />
+      <label for="good-photo">상품 사진</label>
+      <input type="file" id="good-photo" name="img" required />
     </div>
     <div class="input-group">
-      <label for="join-password">비밀번호</label>
-      <input type="password" id="join-password" name="password" />
+      <label for="good-price">시작 가격</label>
+      <input type="number" id="good-price" name="price" required />
     </div>
-    <div class="input-group">
-      <label for="join-money">보유자산</label>
-      <input type="number" id="join-money" name="money" />
-    </div>
-    <button id="join-btn" class="btn" type="submit">회원가입</button>
+    <button id="join-btn" class="btn" type="submit">상품 등록</button>
   </form>
 </div>
-<script>
-  window.onload = () => {
-    if (new URL(location.href).searchParams.get('error')) {
-      alert(new URL(location.href).searchParams.get('error'));
-    }
-  };
-</script>
 {% endblock %}

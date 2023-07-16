@@ -39,7 +39,7 @@ exports.login = (req, res, next) => {
       }
       return res.redirect('/');
     });
-  })(req, res, next); // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙입니다.
+  })(req, res, next);
 };
 
 exports.logout = (req, res) => {

@@ -1,27 +1,30 @@
 {% extends 'layout.html' %} {% block content %}
 <div class="timeline">
-  <h2>경매 진행 목록</h2>
-  <table id="good-list">
-    <tr>
-      <th>상품명</th>
-      <th>이미지</th>
-      <th>시작 가격</th>
-      <th>종료 시간</th>
-      <th>입장</th>
-    </tr>
-    {% for good in goods %}
-    <tr>
-      <td>{{good.name}}</td>
-      <td>
-        <img src="/img/{{good.img}}" />
-      </td>
-      <td>{{good.price}}</td>
-      <td class="time" data-start="{{good.createdAt}}">00:00:00</td>
-      <td>
-        <a href="/good/{{good.id}}" class="enter btn">입장</a>
-      </td>
-    </tr>
-    {% endfor %}
-  </table>
+  <form action="/auth/join" id="join-form" method="post">
+    <div class="input-group">
+      <label for="join-email">이메일</label>
+      <input type="email" id="join-email" name="email" />
+    </div>
+    <div class="input-group">
+      <label for="join-nick">닉네임</label>
+      <input type="text" id="join-nick" name="nick" />
+    </div>
+    <div class="input-group">
+      <label for="join-password">비밀번호</label>
+      <input type="password" id="join-password" name="password" />
+    </div>
+    <div class="input-group">
+      <label for="join-money">보유자산</label>
+      <input type="number" id="join-money" name="money" />
+    </div>
+    <button id="join-btn" class="btn" type="submit">회원가입</button>
+  </form>
 </div>
+<script>
+  window.onload = () => {
+    if (new URL(location.href).searchParams.get('error')) {
+      alert(new URL(location.href).searchParams.get('error'));
+    }
+  };
+</script>
 {% endblock %}
